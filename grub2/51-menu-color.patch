@@ -1,0 +1,45 @@
+From 606abcdbb58b1c92bff5e038adcd2dee9ac9dbbb Mon Sep 17 00:00:00 2001
+Message-Id: <606abcdbb58b1c92bff5e038adcd2dee9ac9dbbb.1519125142.git.hahn@univention.de>
+In-Reply-To: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+References: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+From: Janek Walkenhorst <walkenhorst@univention.de>
+Date: Tue, 20 Feb 2018 11:07:30 +0100
+Subject: [PATCH 3/8] Bug #23405: customize grub2 menu color
+Organization: Univention GmbH, Bremen, Germany
+
+add config paramter for GRUB_COLOR_NORMAL, GRUB_COLOR_HIGHLIGHT,
+GRUB_MENU_COLOR_NORMAL and GRUB_MENU_COLOR_HIGHLIGHT.
+---
+ debian/grub.d/05_debian_theme | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/debian/grub.d/05_debian_theme b/debian/grub.d/05_debian_theme
+index 717258444..0b40c5e54 100755
+--- a/debian/grub.d/05_debian_theme
++++ b/debian/grub.d/05_debian_theme
+@@ -126,8 +126,12 @@ set_background_image(){
+ 	if [ -n "${3}" ]; then
+ 		echo "  set color_highlight=${3}"
+ 	fi
+-	if [ -z "${2}" ] && [ -z "${3}" ]; then
+ 		echo "  true"
++	if [ -n "${4}" ]; then
++		echo "  set menu_color_normal=${4}"
++	fi
++	if [ -n "${5}" ]; then
++		echo "  set menu_color_highlight=${5}"
+ 	fi
+ 	echo "else"
+ 	set_default_theme "  "
+@@ -161,7 +165,7 @@ fi
+ # If so, try to use it. Don't try the other possibilities in that case
+ # (#608263).
+ if [ -n "${GRUB_BACKGROUND+x}" ]; then
+-	set_background_image "${GRUB_BACKGROUND}" || set_default_theme
++	set_background_image "${GRUB_BACKGROUND}" "${GRUB_COLOR_NORMAL}" "${GRUB_COLOR_HIGHLIGHT}" "${GRUB_MENU_COLOR_NORMAL}" "${GRUB_MENU_COLOR_HIGHLIGHT}"|| set_default_theme
+ 	exit 0
+ fi
+ 
+-- 
+2.11.0
+

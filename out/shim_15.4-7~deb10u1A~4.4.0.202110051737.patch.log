@@ -1,0 +1,18 @@
+dpkg-source: Warnung: unsigniertes Quellpaket wird extrahiert (/var/univention/buildsystem2/src/shim/15.4-7~deb10u1/shim_15.4-7~deb10u1.dsc)
+dpkg-source: Information: shim wird nach /var/build/temp/tmp.u4Q0ssC9bu/shim-15.4 extrahiert
+dpkg-source: Information: shim_15.4.orig.tar.bz2 wird entpackt
+dpkg-source: Information: shim_15.4-7~deb10u1.debian.tar.xz wird entpackt
+'univention/buildsystem2/src/shim/15.4-7~deb10u1/shim_15.4-7~deb10u1.debian.tar.xz' -> 'build/temp/tmp.u4Q0ssC9bu/shim_15.4-7~deb10u1.debian.tar.xz'
+'univention/buildsystem2/src/shim/15.4-7~deb10u1/shim_15.4-7~deb10u1.dsc' -> 'build/temp/tmp.u4Q0ssC9bu/shim_15.4-7~deb10u1.dsc'
+dpkg-source: Information: fix-import_one_mok_state.patch wird angewandt
+dpkg-source: Information: fix-broken-ia32-reloc.patch wird angewandt
+dpkg-source: Information: MOK-BootServicesData.patch wird angewandt
+dpkg-source: Information: Don-t-call-QueryVariableInfo-on-EFI-1.10-machines.patch wird angewandt
+dpkg-source: Information: relax_check_for_import_mok_state.patch wird angewandt
+dpkg-source: Information: fix_arm64_rela_sections.patch wird angewandt
+The following patches will be applied:
+ 0001-Bug-51748-Use-Univention-Secure-Boot-CA.patch
+Applying patch 0001-Bug-51748-Use-Univention-Secure-Boot-CA.patch using -p1
+Output of the patch process:
+
+OK

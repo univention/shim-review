@@ -1,0 +1,35 @@
+From a771cc086240d34da35529d8c54a780d1ae54589 Mon Sep 17 00:00:00 2001
+Message-Id: <a771cc086240d34da35529d8c54a780d1ae54589.1519125142.git.hahn@univention.de>
+In-Reply-To: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+References: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+From: Janek Walkenhorst <walkenhorst@univention.de>
+Date: Tue, 20 Feb 2018 11:07:30 +0100
+Subject: [PATCH 4/8] Bug #23405: customize grub2 menu color
+Organization: Univention GmbH, Bremen, Germany
+
+add config paramter for GRUB_COLOR_NORMAL, GRUB_COLOR_HIGHLIGHT,
+GRUB_MENU_COLOR_NORMAL and GRUB_MENU_COLOR_HIGHLIGHT.
+---
+ util/grub-mkconfig.in | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/util/grub-mkconfig.in b/util/grub-mkconfig.in
+index c3ea64d07..1938c5930 100644
+--- a/util/grub-mkconfig.in
++++ b/util/grub-mkconfig.in
+@@ -245,7 +245,11 @@ export GRUB_DEFAULT \
+   GRUB_OS_PROBER_SKIP_LIST \
+   GRUB_DISABLE_SUBMENU \
+   GRUB_RECORDFAIL_TIMEOUT \
+-  GRUB_RECOVERY_TITLE
++  GRUB_RECOVERY_TITLE \
++  GRUB_COLOR_NORMAL \
++  GRUB_COLOR_HIGHLIGHT \
++  GRUB_MENU_COLOR_NORMAL \
++  GRUB_MENU_COLOR_HIGHLIGHT
+ 
+ if test "x${grub_cfg}" != "x"; then
+   rm -f "${grub_cfg}.new"
+-- 
+2.11.0
+

@@ -1,0 +1,57 @@
+From 67272f08c390654e6f82e48366cb27ca2519c7ba Mon Sep 17 00:00:00 2001
+Message-Id: <67272f08c390654e6f82e48366cb27ca2519c7ba.1519125142.git.hahn@univention.de>
+In-Reply-To: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+References: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+From: Janek Walkenhorst <walkenhorst@univention.de>
+Date: Tue, 20 Feb 2018 11:07:05 +0100
+Subject: [PATCH 2/8] Bug #32916/#35917: use linuxefi/initrdefi methods under
+ UEFI
+Organization: Univention GmbH, Bremen, Germany
+
+---
+ util/grub.d/10_linux.in | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
+index 64ac6e240..9bdaa67cb 100644
+--- a/util/grub.d/10_linux.in
++++ b/util/grub.d/10_linux.in
+@@ -183,12 +183,18 @@ EOF
+   fi
+   if test -d /sys/firmware/efi && test -e "${linux}.efi.signed"; then
+     sed "s/^/$submenu_indentation/" << EOF
+-	linux	${rel_dirname}/${basename}.efi.signed root=${linux_root_device_thisversion} ro ${args}
++	linuxefi	${rel_dirname}/${basename}.efi.signed root=${linux_root_device_thisversion} ro ${args}
+ EOF
+   else
++    if test -d /sys/firmware/efi; then
++    sed "s/^/$submenu_indentation/" << EOF
++	linuxefi	${rel_dirname}/${basename} root=${linux_root_device_thisversion} ro ${args}
++EOF
++    else
+     sed "s/^/$submenu_indentation/" << EOF
+ 	linux	${rel_dirname}/${basename} root=${linux_root_device_thisversion} ro ${args}
+ EOF
++    fi
+   fi
+   if test -n "${initrd}" ; then
+     # TRANSLATORS: ramdisk isn't identifier. Should be translated.
+@@ -198,9 +204,15 @@ EOF
+ 	echo	'$(echo "$message" | grub_quote)'
+ EOF
+     fi
++    if test -d /sys/firmware/efi; then
++    sed "s/^/$submenu_indentation/" << EOF
++	initrdefi	${rel_dirname}/${initrd}
++EOF
++    else
+     sed "s/^/$submenu_indentation/" << EOF
+ 	initrd	${rel_dirname}/${initrd}
+ EOF
++    fi
+   fi
+   sed "s/^/$submenu_indentation/" << EOF
+ }
+-- 
+2.11.0
+

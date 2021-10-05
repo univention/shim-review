@@ -1,0 +1,28 @@
+Index: grub2-2.02+dfsg1/debian/control
+===================================================================
+--- grub2-2.02+dfsg1.orig/debian/control
++++ grub2-2.02+dfsg1/debian/control
+@@ -11,8 +11,8 @@ Build-Depends: debhelper (>= 10~),
+  po-debconf,
+  help2man,
+  texinfo,
+- gcc-8,
+- gcc-8-multilib [i386 kopensolaris-i386 any-amd64 any-ppc64 any-sparc],
++ gcc-6,
++ gcc-6-multilib [i386 kopensolaris-i386 any-amd64 any-ppc64 any-sparc],
+  xfonts-unifont,
+  libfreetype6-dev,
+  gettext,
+Index: grub2-2.02+dfsg1/debian/rules
+===================================================================
+--- grub2-2.02+dfsg1.orig/debian/rules
++++ grub2-2.02+dfsg1/debian/rules
+@@ -40,7 +40,7 @@ else
+ with_check := yes
+ endif
+ 
+-CC := gcc-8
++CC := gcc-6
+ 
+ confflags = \
+ 	PACKAGE_VERSION="$(deb_version)" PACKAGE_STRING="GRUB $(deb_version)" \

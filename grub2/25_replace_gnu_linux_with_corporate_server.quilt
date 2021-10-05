@@ -1,0 +1,35 @@
+From 454a2c2887c9456cd741e1ad55607fca888f881c Mon Sep 17 00:00:00 2001
+Message-Id: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+From: Janek Walkenhorst <walkenhorst@univention.de>
+Date: Tue, 20 Feb 2018 11:02:04 +0100
+Subject: [PATCH 1/8] Bug #22117: Print "Univention Corporate Server"
+Organization: Univention GmbH, Bremen, Germany
+
+instead of "Univention GNU/Linux" in the boot prompt
+
+Not applicable to Debian.
+---
+ util/grub.d/10_linux.in | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
+index f7de2e1c5..64ac6e240 100644
+--- a/util/grub.d/10_linux.in
++++ b/util/grub.d/10_linux.in
+@@ -38,6 +38,13 @@ if [ "x${GRUB_DISTRIBUTOR}" = "x" ] ; then
+   OS=GNU/Linux
+ else
+   case ${GRUB_DISTRIBUTOR} in
++    Univention)
++      if which ucr >/dev/null 2>/dev/null
++      then
++          OS=$(ucr get grub/title)
++      fi
++      OS="${OS:-Univention Corporate Server}"
++      ;;
+     Ubuntu|Kubuntu)
+       OS="${GRUB_DISTRIBUTOR}"
+       ;;
+-- 
+2.11.0
+

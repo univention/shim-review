@@ -1,0 +1,31 @@
+Index: grub2-2.02+dfsg1/debian/rules
+===================================================================
+--- grub2-2.02+dfsg1.orig/debian/rules
++++ grub2-2.02+dfsg1/debian/rules
+@@ -1,7 +1,8 @@
+ #!/usr/bin/make -f
+ SHELL		:= bash
+ 
+-deb_version		:= $(shell dpkg-parsechangelog | sed -ne "s/^Version: \(.*\)/\1/p")
++ucs_version		:= $(shell dpkg-parsechangelog | sed -ne "s/^Version: \(.*\)/\1/p")
++deb_version		:= $(shell echo $(ucs_version) | sed -e 's/A~.*//')
+ upstream_version	:= $(shell echo $(deb_version) | sed -e "s/-[^-]*$$//")
+ plain_upstream_version	:= $(shell echo $(upstream_version) | sed -e "s/+dfsg.*//")
+ 
+@@ -218,6 +219,7 @@ debian/stamps/build-grub-efi-ia32 debian
+ 	dh_auto_build
+ 	grub_dir=`mktemp -d` ; \
+ 	sed -e "s/@DEB_VERSION@/$(deb_version)/g" \
++		-e "s/@UCS_VERSION@/$(ucs_version)/g" \
+ 		-e "s/@UPSTREAM_VERSION@/$(plain_upstream_version)/g" \
+ 		<debian/sbat.$(SB_EFI_VENDOR).csv.in \
+ 		>$${grub_dir}/sbat.$(SB_EFI_VENDOR).csv; \
+Index: grub2-2.02+dfsg1/debian/sbat.univention.csv.in
+===================================================================
+--- /dev/null
++++ grub2-2.02+dfsg1/debian/sbat.univention.csv.in
+@@ -0,0 +1,4 @@
++sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
++grub,1,Free Software Foundation,grub,@UPSTREAM_VERSION@,https://www.gnu.org/software/grub/
++grub.debian,1,Debian,grub2,@DEB_VERSION@,https://tracker.debian.org/pkg/grub2
++grub.univention,1,Univention,grub2,@UCS_VERSION@,https://forge.univention.org/bugzilla

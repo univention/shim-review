@@ -1,2 +1,4 @@
 .*.sw?
 *~
+shim-omar/
+*.deb

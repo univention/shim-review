@@ -1,0 +1,25 @@
+From 29791d0f2786722f6419f4c720719d923a218908 Mon Sep 17 00:00:00 2001
+Message-Id: <29791d0f2786722f6419f4c720719d923a218908.1519125142.git.hahn@univention.de>
+In-Reply-To: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+References: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+From: Janek Walkenhorst <walkenhorst@univention.de>
+Date: Tue, 20 Feb 2018 11:12:04 +0100
+Subject: [PATCH 7/8] Bug #39009: install show loading message
+Organization: Univention GmbH, Bremen, Germany
+
+---
+ util/grub-install.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+Index: grub2-2.02+dfsg1/util/grub-install.c
+===================================================================
+--- grub2-2.02+dfsg1.orig/util/grub-install.c
++++ grub2-2.02+dfsg1/util/grub-install.c
+@@ -1526,6 +1526,7 @@ main (int argc, char *argv[])
+ 	  if (!load_cfg_f)
+ 	    load_cfg_f = grub_util_fopen (load_cfg, "wb");
+ 	  have_load_cfg = 1;
++	  fprintf (load_cfg_f, "echo Loading step 2\nsleep 1\n");
+ 	  if (uuid)
+ 	    {
+ 	      fprintf (load_cfg_f, "search.fs_uuid %s root ",

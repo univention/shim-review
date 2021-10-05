@@ -1,0 +1,29 @@
+From 4b5a26af9be58ac5e6a2dcb3adf9eb9bd4a86e2d Mon Sep 17 00:00:00 2001
+Message-Id: <4b5a26af9be58ac5e6a2dcb3adf9eb9bd4a86e2d.1519125142.git.hahn@univention.de>
+In-Reply-To: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+References: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+From: Philipp Hahn <hahn@univention.de>
+Date: Tue, 20 Feb 2018 11:47:15 +0100
+Subject: [PATCH 8/8] Bug #45961: Sort old UCS kernel after Debian kernel
+Organization: Univention GmbH, Bremen, Germany
+
+---
+ debian/patches/dpkg_version_comparison.patch | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/debian/patches/dpkg_version_comparison.patch b/debian/patches/dpkg_version_comparison.patch
+index c32ecc25b..f52b28007 100644
+--- a/debian/patches/dpkg_version_comparison.patch
++++ b/debian/patches/dpkg_version_comparison.patch
+@@ -21,7 +21,7 @@ index 60b31cadd..3a4684e78 100644
+  {
+ -  version_test_gt_a="`echo "$1" | sed -e "s/[^-]*-//"`"
+ -  version_test_gt_b="`echo "$2" | sed -e "s/[^-]*-//"`"
+-+  version_test_gt_sedexp="s/[^-]*-//;s/[._-]\(pre\|rc\|test\|git\|old\|trunk\)/~\1/g"
+++  version_test_gt_sedexp="s/[^-]*-//;s/[._-]\(pre\|rc\|test\|git\|old\|trunk\)/~\1/g;s/-ucs/-0+/g"
+ +  version_test_gt_a="`echo "$1" | sed -e "$version_test_gt_sedexp"`"
+ +  version_test_gt_b="`echo "$2" | sed -e "$version_test_gt_sedexp"`"
+    version_test_gt_cmp=gt
+-- 
+2.11.0
+

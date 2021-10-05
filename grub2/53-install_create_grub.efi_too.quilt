@@ -1,0 +1,44 @@
+From 4d6fa9311132c6216596fde625f0f9a9aaf2f88a Mon Sep 17 00:00:00 2001
+Message-Id: <4d6fa9311132c6216596fde625f0f9a9aaf2f88a.1519125142.git.hahn@univention.de>
+In-Reply-To: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+References: <454a2c2887c9456cd741e1ad55607fca888f881c.1519125142.git.hahn@univention.de>
+From: Janek Walkenhorst <walkenhorst@univention.de>
+Date: Tue, 20 Feb 2018 11:09:59 +0100
+Subject: [PATCH 6/8] Bug #36417: create grub.efi for shim to load
+Organization: Univention GmbH, Bremen, Germany
+
+---
+ util/grub-install.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+Index: grub2-2.02+dfsg1/util/grub-install.c
+===================================================================
+--- grub2-2.02+dfsg1.orig/util/grub-install.c
++++ grub2-2.02+dfsg1/util/grub-install.c
+@@ -2069,6 +2069,7 @@ main (int argc, char *argv[])
+ 	    if (grub_util_is_regular (shim_signed))
+ 	      {
+ 		char *chained_base, *chained_dst;
++		char *chained_base2, *chained_dst2;
+ 		char *mok_src, *mok_dst, *fb_src, *fb_dst, *csv_src, *csv_dst;
+ 		if (!removable)
+ 		  {
+@@ -2081,6 +2082,9 @@ main (int argc, char *argv[])
+ 		chained_base = xasprintf ("grub%s.efi", efi_suffix);
+ 		chained_dst = grub_util_path_concat (2, efidir, chained_base);
+ 		grub_install_copy_file (efi_signed, chained_dst, 1);
++		chained_base2 = xasprintf ("grub.efi");
++		chained_dst2 = grub_util_path_concat (2, efidir, chained_base2);
++		grub_install_copy_file (efi_signed, chained_dst2, 1);
+ 
+ 		/* Not critical, so not an error if they are not present (as it
+ 		   won't be for older releases); but if we have them, make
+@@ -2125,6 +2129,8 @@ main (int argc, char *argv[])
+ 
+ 		free (chained_dst);
+ 		free (chained_base);
++		free (chained_dst2);
++		free (chained_base2);
+ 		free (mok_src);
+ 		free (mok_dst);
+ 		free (fb_src);
