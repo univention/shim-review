@@ -41,7 +41,7 @@ Who is the primary contact for security updates, etc.
 - Name: Philipp Hahn
 - Position: Open Source Software Engineer
 - Email address: hahn@univention.de
-- PGP key: 58AF 7C2E 007C DBE6 2C59  E078 F50E FDCF 8AD0 4B| 321A
+- PGP key: 58AF 7C2E 007C DBE6 2C59  E078 F50E FDCF 8AD0 4B1A
 
 -------------------------------------------------------------------------------
 Who is the secondary contact for security updates, etc.
